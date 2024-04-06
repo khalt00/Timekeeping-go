@@ -1,0 +1,269 @@
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "employeeID",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "date",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "details",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "enum AttendanceContract.Type",
+                "name": "attendanceType",
+                "type": "uint8"
+            }
+        ],
+        "name": "AttendanceEvent",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "details",
+                "type": "string"
+            }
+        ],
+        "name": "UpdateAttendanceEvent",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            }
+        ],
+        "name": "addUser",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_startDate",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_endDate",
+                "type": "uint256"
+            }
+        ],
+        "name": "getAttendanceByDateRange",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "employeeID",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "date",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "details",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "enum AttendanceContract.Type",
+                        "name": "attendanceType",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct AttendanceContract.Attendance[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_employeeID",
+                "type": "address"
+            }
+        ],
+        "name": "getAttendanceByEmployeeID",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "employeeID",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "date",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "details",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "enum AttendanceContract.Type",
+                        "name": "attendanceType",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct AttendanceContract.Attendance[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAttendances",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "uint256",
+                        "name": "id",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "employeeID",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "date",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "details",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "enum AttendanceContract.Type",
+                        "name": "attendanceType",
+                        "type": "uint8"
+                    }
+                ],
+                "internalType": "struct AttendanceContract.Attendance[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getUsers",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "enum AttendanceContract.Type",
+                "name": "_attendanceType",
+                "type": "uint8"
+            },
+            {
+                "internalType": "string",
+                "name": "_details",
+                "type": "string"
+            }
+        ],
+        "name": "recordAttendance",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_user",
+                "type": "address"
+            }
+        ],
+        "name": "removeUser",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_attendanceID",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_details",
+                "type": "string"
+            }
+        ],
+        "name": "updateAttendance",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+]

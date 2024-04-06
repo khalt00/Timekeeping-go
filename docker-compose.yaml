@@ -1,0 +1,32 @@
+version: '3.0'
+
+name: kha-hotel-booking
+services:
+  db:
+    image: postgres:16.1-alpine3.19
+    ports:
+      - 5432:5432
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: kha_hotel_booking
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgres/data
+    networks:
+      - app-network
+  api:
+    image: kha-hotel-booking:latest
+    build: .
+    ports:
+      - 8080:8080
+    restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres:
