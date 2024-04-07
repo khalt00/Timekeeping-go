@@ -1,6 +1,6 @@
 version: '3.0'
 
-name: kha-hotel-booking
+name: attendance
 services:
   db:
     image: postgres:16.1-alpine3.19
@@ -8,7 +8,7 @@ services:
       - 5432:5432
     restart: unless-stopped
     environment:
-      POSTGRES_DB: kha_hotel_booking
+      POSTGRES_DB: attendance
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     volumes:
@@ -16,14 +16,15 @@ services:
     networks:
       - app-network
   api:
-    image: kha-hotel-booking:latest
+    image: attendance:latest
     build: .
     ports:
       - 8080:8080
     restart: always
+    depends_on:
+      - db
     networks:
       - app-network
-
 networks:
   app-network:
     driver: bridge

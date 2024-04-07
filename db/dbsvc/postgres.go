@@ -3,39 +3,45 @@ package dbsvc
 import (
 	"context"
 	"fmt"
+	"log"
 	"os"
-	"time"
+	"timekeeping/lib/config"
 
-	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-var _conn *pgx.Conn
+var pool *pgxpool.Pool
 
-func StartPostgres() {
-	var conn *pgx.Conn
-	var err error
+func StartPostgresConnection(config config.Config) {
+	postgresConn(config)
+}
 
-	// Retry up to 5 times
-	for i := 0; i < 5; i++ {
-		conn, err = pgx.Connect(context.Background(), "postgres://avnadmin:AVNS_g0TeOpoVwDSLwS3Uko_@pg-3a3ef85c-normals3210-5dd3.a.aivencloud.com:21277/defaultdb?sslmode=require")
-		if err == nil {
-			// Connection successful, break the loop
-			break
-		}
+func postgresConn(dbConfig config.Config) {
 
-		// Print error and sleep before retrying
-		fmt.Fprintf(os.Stderr, "Attempt %d: Unable to connect to database: %v\n", i+1, err)
-		time.Sleep(5 * time.Second) // Adjust the sleep duration as needed
-	}
+	databaseURL := fmt.Sprintf("postgres://%s:%s@%s:%d/%s?sslmode=%s",
+		dbConfig.Username,
+		dbConfig.Password,
+		dbConfig.Host,
+		dbConfig.Port,
+		dbConfig.Database,
+		dbConfig.SSLMode,
+	)
 
+	newPool, err := pgxpool.New(context.Background(), databaseURL)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to connect to database after 5 attempts: %v\n", err)
+		fmt.Fprintln(os.Stderr, "Unable to connect to database:", err)
+		os.Exit(1)
+	}
+	if err := newPool.Ping(context.Background()); err != nil {
+		fmt.Println("error while pinging database", err)
 		os.Exit(1)
 	}
 
-	_conn = conn
+	pool = newPool
+
+	log.Println("CONNECT POSTGRES SUCCESSFULLY")
 }
 
-func GetPostgresConnection() *pgx.Conn {
-	return _conn
+func GetPostgresConn() *pgxpool.Pool {
+	return pool
 }

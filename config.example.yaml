@@ -1,0 +1,10 @@
+engine: "postgres"
+host: "db"
+port: "5432"
+database: "attendance"
+username: "postgres"
+password: "postgres"
+sslmode: "disable"
+
+alchemy_url: "" #Polygon mumbai url
+smart_contract_address: "" # deployed smart contract address
