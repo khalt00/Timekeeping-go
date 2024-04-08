@@ -41,7 +41,7 @@ func Pooling(config config.Config) {
 		log.Fatal(err)
 	}
 
-	contractAddress := common.HexToAddress("0xF3107e79aA8F8Cd865A8F0B9e928d615C4cc8333")
+	contractAddress := common.HexToAddress(config.SmartContractAddress)
 
 	contractAbi, err := abi.JSON(bytes.NewReader(abiBytes))
 	if err != nil {
@@ -125,6 +125,5 @@ func insertAttendanceToDatabase(data []interface{}) error {
 		log.Println("model.InsertAttendanceRecord(record)", err)
 	}
 
-	log.Println("inserted attendance", data[0])
 	return nil
 }
